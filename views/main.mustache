@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8" />
+  <meta property="title" content="{{title}}" />
+  <title>{{title}}</title>
 </head>
 
 <html>
@@ -11,7 +13,6 @@
     <script>
       // 2. This code loads the web-sdk API code asynchronously
       // and create queue in global var window.IASReady.
-require("dotenv").config();
       window.IASReady = (function (d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0],
@@ -34,8 +35,7 @@ require("dotenv").config();
       //    after the API code downloads.
       window.IASReady.ready(function () {
         const storyManagerConfig = {
-          apiKey:
-            "your_api_key",
+          apiKey: "{{apiKey}}",
           userId: "user", // usually - hash from real user identifier
           tags: [], // Array<string>
           placeholders: {

@@ -35,13 +35,10 @@
       //    after the API code downloads.
       window.IASReady.ready(function () {
         const storyManagerConfig = {
-          apiKey:
-          "your_api_key",
-          //envConfig.parsed.API_KEY,
+          apiKey: "{{apiKey}}",
           userId: "user", // usually - hash from real user identifier
           lang: "eng",
         };
-
 
         // StoryManager singleton instance
         const storyManager = new window.IAS.StoryManager(storyManagerConfig);
@@ -66,7 +63,6 @@
         // Show SharePage
           // const id = document.getElementById("storyid").textContent; // from url path
           const id = "{{storyid}}";
-          console.log(id);
         const sharePageOptions = {
           handleStartLoad: () => console.log("handleStartLoad"),
           handleStopLoad: (result) => console.log("handleStartLoad", result), // result: boolean - were onboarding or not

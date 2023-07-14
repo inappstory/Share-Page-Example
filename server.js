@@ -13,25 +13,18 @@ app.engine("mustache", mustacheExpress());
 app.set("view engine", "mustache");
 app.set("views", __dirname + "/views");
 
-//this function returns datal, that should be used in meta tags
-const viewData = (req, data) => {
-  return {
-    title: data.title,
-    description: data.description,
-    storyid: req.params.storyid,
-  };
-};
-
 //routes
   //get root
 app.get("/", (req, res) => {
-  res.render("main", {});
+  res.render("main", {
+    title: "Main",
+    apiKey: envConfig.parsed.API_KEY,
+  });
 });
 
   //get story by id
 app.get("/:storyid", async (req, res) => {
   try {
-console.log(PORT);
     const apiResponse = await fetch(
       "https://api.inappstory.com/v2/story-share-page-info/" +
         req.params.storyid,
@@ -42,13 +35,16 @@ console.log(PORT);
         },
       }
     );
-    const apiResponseJSON = await apiResponse.json();
-    console.log(apiResponseJSON);
+    const data = await apiResponse.json();
 
-    res.render("sharePage", viewData(req, apiResponseJSON));
+    res.render("sharePage", {
+      title: data.title,
+      description: data.description,
+      storyid: req.params.storyid,
+      apiKey: envConfig.parsed.API_KEY,
+    });
     
   } catch (err) {
-    console.log(err);
      res.status(500).send('Something went wrong');
      return;
   }
