@@ -37,7 +37,6 @@
         const storyManagerConfig = {
           apiKey: "{{apiKey}}",
           userId: "user", // usually - hash from real user identifier
-          tags: [], // Array<string>
           lang: "eng",
         };
 
@@ -52,7 +51,7 @@
           .setStoryReaderOptions({
             scrollStyle: "flat",
             sharePanel: {
-              targets: ["facebook", "twitter", "linkedin", "telegram"],
+              targets: ["facebook", "twitter", "linkedin"],
             },
           })
         // mount and start StoriesList widget
