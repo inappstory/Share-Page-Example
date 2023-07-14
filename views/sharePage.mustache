@@ -3,16 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="title" content={{title}} />
+    <meta property="title" content="{{title}}" />
     <meta property="description" content="{{description}}" />
     <title>{{title}}</title>
   </head>
   <body>
-
     <script>
       // This code loads the web-sdk API code asynchronously
       // and create queue in global var window.IASReady.
-
       window.IASReady = (function (d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0],
@@ -29,7 +27,6 @@
         };
         return st;
       })(document, "script", "ias-wjs");
-
 
       // 3. This function creates an StoryManager instance (and SharePage widget)
       //    after the API code downloads.
@@ -61,15 +58,13 @@
           });
 
         // Show SharePage
-          // const id = document.getElementById("storyid").textContent; // from url path
-          const id = "{{storyid}}";
         const sharePageOptions = {
           handleStartLoad: () => console.log("handleStartLoad"),
           handleStopLoad: (result) => console.log("handleStartLoad", result), // result: boolean - were onboarding or not
           handleStoryReaderClose: () => console.log("handleStoryReaderClose"),
         };
         const sharePage = new storyManager.SharePage(
-          id,
+          "{{storyid}}",
           appearanceManager,
           sharePageOptions
         );
