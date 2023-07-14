@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="title" content={{title}} />
+    <meta property="description" content="{{description}}" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+
+    <script>
+      // This code loads the web-sdk API code asynchronously
+      // and create queue in global var window.IASReady.
+
+      window.IASReady = (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0],
+          st = window.IASReady || {};
+        if (d.getElementById(id)) return st;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://sdk.inappstory.com/v2.7.6/dist/js/IAS.js";
+        js.async = true;
+        fjs.parentNode.insertBefore(js, fjs);
+        st._e = [];
+        st.ready = function (f) {
+          st._e.push(f);
+        };
+        return st;
+      })(document, "script", "ias-wjs");
+
+      // 3. This function creates an StoryManager instance (and SharePage widget)
+      //    after the API code downloads.
+      window.IASReady.ready(function () {
+        const storyManagerConfig = {
+          apiKey:
+            envConfig.parsed.API_KEY,
+          userId: "user", // usually - hash from real user identifier
+          lang: "eng",
+        };
+
+        // StoryManager singleton instance
+        const storyManager = new window.IAS.StoryManager(storyManagerConfig);
+
+        // AppearanceManager instance
+        const appearanceManager = new window.IAS.AppearanceManager();
+
+        // appearance config
+        appearanceManager
+          .setCommonOptions({
+            hasLike: true,
+            hasFavorite: true,
+          })
+          .setStoryReaderOptions({
+            closeButtonPosition: "right",
+            scrollStyle: "flat",
+            sharePanel: {
+              targets: ["facebook", "twitter", "linkedin"],
+            },
+          });
+
+        // Show SharePage
+          // const id = document.getElementById("storyid").textContent; // from url path
+          const id = "{{storyid}}";
+          console.log(id);
+        const sharePageOptions = {
+          handleStartLoad: () => console.log("handleStartLoad"),
+          handleStopLoad: (result) => console.log("handleStartLoad", result), // result: boolean - were onboarding or not
+          handleStoryReaderClose: () => console.log("handleStoryReaderClose"),
+        };
+        const sharePage = new storyManager.SharePage(
+          id,
+          appearanceManager,
+          sharePageOptions
+        );
+
+        // or events can handle over eventEmitter
+        sharePage.on("startLoad", () => console.log("startLoad"));
+        sharePage.on("endLoad", (e) => console.log("endLoad", e.result));
+        sharePage.on("closeStoryReader", () => console.log("closeStoryReader"));
+
+        // clicks on buttons in reader
+        storyManager.storyLinkClickHandler = (payload) =>
+          console.log({ payload });
+      });
+    </script>
+  </body>
+</html>
