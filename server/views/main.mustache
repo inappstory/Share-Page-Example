@@ -11,7 +11,7 @@
     <script>
       // 2. This code loads the web-sdk API code asynchronously
       // and create queue in global var window.IASReady.
-
+require("dotenv").config();
       window.IASReady = (function (d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0],
@@ -35,7 +35,7 @@
       window.IASReady.ready(function () {
         const storyManagerConfig = {
           apiKey:
-            "BZ0CAAAAAAAAAAAAABEaIThgEhYUJk9CMBlDT0RBDnY9cnx2x5ry7EnWZo_f2AXjmcA6MhauwDuEqM4OHt6L",
+            "your_api_key",
           userId: "user", // usually - hash from real user identifier
           tags: [], // Array<string>
           placeholders: {
@@ -44,7 +44,7 @@
           imagePlaceholders: {
             userAvatar: "image_url",
           },
-          lang: "ru",
+          lang: "eng",
         };
 
         // StoryManager singleton instance

@@ -30,15 +30,18 @@
         return st;
       })(document, "script", "ias-wjs");
 
+
       // 3. This function creates an StoryManager instance (and SharePage widget)
       //    after the API code downloads.
       window.IASReady.ready(function () {
         const storyManagerConfig = {
           apiKey:
-            envConfig.parsed.API_KEY,
+          "your_api_key",
+          //envConfig.parsed.API_KEY,
           userId: "user", // usually - hash from real user identifier
           lang: "eng",
         };
+
 
         // StoryManager singleton instance
         const storyManager = new window.IAS.StoryManager(storyManagerConfig);
