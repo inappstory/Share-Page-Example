@@ -14,3 +14,7 @@ Pass your environmental variables in the .env-example and rename the file to .en
 
 ### serve the app in the local server
 ```$ npm run dev```
+
+Available routes: 
+- "/" - main.mustache
+- "/{storyid}" - sharePage.mustache
